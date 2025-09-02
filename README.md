@@ -223,14 +223,3 @@ npm run test:ci         # Run in CI mode
 ## License
 
 This project is licensed under the MIT License.
-
-## Changelog
-
-### v0.1.0
-- Initial release
-- News summarization feature
-- Text content detection
-- Image analysis capabilities
-- Video processing pipeline
-- Comprehensive testing suite
-- Production deployment configuration
