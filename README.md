@@ -1,36 +1,236 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Alethea Authenticity Engine
+
+A comprehensive AI-powered platform for detecting misinformation and analyzing content authenticity across text, images, and videos.
+
+## Features
+
+- **News Summarization**: Aggregate and summarize news from multiple sources using NewsAPI and GDELT
+- **Text Analysis**: Detect misinformation in text content and URLs using advanced AI analysis
+- **Image Analysis**: Identify deepfakes and manipulated images with computer vision
+- **Video Analysis**: Analyze video content for authenticity using multi-modal AI
+- **Multi-modal Detection**: Comprehensive analysis across different content types
+- **Real-time Processing**: Fast analysis with caching and optimization
+- **Security**: Built-in rate limiting, input sanitization, and security headers
+
+## Tech Stack
+
+- **Frontend**: Next.js 14 with App Router, React 19, TypeScript, Tailwind CSS
+- **AI Services**: Google Gemini, Hugging Face Transformers, OpenAI Whisper
+- **APIs**: NewsAPI, GDELT Project
+- **Media Processing**: FFmpeg, Sharp, OCR
+- **Testing**: Jest, React Testing Library
+- **Deployment**: Vercel with optimized serverless functions
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Node.js 18+ 
+- npm or yarn
+- API keys for external services
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd alethea-authenticity-engine
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env.local
+   ```
+   Fill in your API keys in `.env.local`
+
+4. **Run development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open the application**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## Environment Variables
+
+### Required API Keys
+
+```env
+# AI Services
+GEMINI_API_KEY=your_gemini_api_key_here
+HUGGINGFACE_API_KEY=your_huggingface_api_key_here
+OPENAI_API_KEY=your_openai_api_key_here
+
+# News Sources
+NEWS_API_KEY=your_news_api_key_here
+GDELT_API_KEY=your_gdelt_api_key_here
+
+# Application Settings
+NODE_ENV=production
+NEXT_PUBLIC_APP_URL=https://your-domain.com
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Optional Configuration
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+# Security & Performance
+RATE_LIMIT_MAX_REQUESTS=100
+RATE_LIMIT_WINDOW_MS=60000
+MAX_FILE_SIZE=50000000
+MAX_VIDEO_SIZE=100000000
+CACHE_TTL_SECONDS=300
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## API Endpoints
 
-## Learn More
+### News API
+- `POST /api/news` - Aggregate and summarize news articles
+- `GET /api/news?query=...` - Search news with query parameters
 
-To learn more about Next.js, take a look at the following resources:
+### Content Detection APIs
+- `POST /api/detector/text` - Analyze text content or URLs
+- `POST /api/detector/image` - Analyze image authenticity
+- `POST /api/detector/video` - Analyze video content
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### System APIs
+- `GET /api/health` - Health check and system status
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Usage Examples
 
-## Deploy on Vercel
+### Text Analysis
+```javascript
+const response = await fetch('/api/detector/text', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    text: "Content to analyze..."
+  })
+});
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Image Analysis
+```javascript
+const formData = new FormData();
+formData.append('image', file);
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+const response = await fetch('/api/detector/image', {
+  method: 'POST',
+  body: formData
+});
+```
+
+## Development
+
+### Available Scripts
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run test         # Run tests
+npm run test:watch   # Run tests in watch mode
+npm run test:coverage # Run tests with coverage
+npm run lint         # Run ESLint
+npm run type-check   # Run TypeScript checks
+npm run verify       # Run all checks (type, lint, test)
+```
+
+### Testing
+
+The project includes comprehensive tests:
+
+- **Unit Tests**: Component and service testing
+- **Integration Tests**: API endpoint testing
+- **Coverage Reports**: Detailed test coverage analysis
+
+Run tests:
+```bash
+npm test                # Run all tests
+npm run test:coverage   # Run with coverage report
+npm run test:ci         # Run in CI mode
+```
+
+## Deployment
+
+### Vercel Deployment (Recommended)
+
+1. **Install Vercel CLI**
+   ```bash
+   npm i -g vercel
+   ```
+
+2. **Deploy**
+   ```bash
+   vercel deploy
+   ```
+
+3. **Set Environment Variables**
+   Configure all required environment variables in the Vercel dashboard
+
+### Manual Deployment
+
+1. **Build the application**
+   ```bash
+   npm run build
+   ```
+
+2. **Start production server**
+   ```bash
+   npm start
+   ```
+
+## Architecture
+
+### Frontend Architecture
+- **App Router**: Next.js 14 App Router for optimal performance
+- **Component Structure**: Modular, reusable React components
+- **State Management**: React hooks and context
+- **Styling**: Tailwind CSS with responsive design
+
+### Backend Architecture
+- **API Routes**: Serverless functions with Next.js API routes
+- **Service Layer**: Modular services for AI, news, and media processing
+- **Security Layer**: Input validation, rate limiting, sanitization
+- **Caching Layer**: In-memory caching for improved performance
+
+### AI Integration
+- **Multi-Provider**: Support for multiple AI services
+- **Fallback Mechanisms**: Graceful degradation when services fail
+- **Confidence Scoring**: Transparent confidence metrics
+- **Reasoning**: Detailed explanations for all analyses
+
+## Security Features
+
+- **Input Sanitization**: XSS and injection prevention
+- **Rate Limiting**: API abuse prevention
+- **File Validation**: Secure file upload handling
+- **Security Headers**: CORS, CSP, and other security headers
+- **Error Handling**: Secure error responses without information leakage
+
+## Performance Optimizations
+
+- **Caching**: Intelligent caching of API responses
+- **Code Splitting**: Optimized bundle loading
+- **Image Optimization**: Next.js Image component
+- **Serverless Functions**: Optimized for Vercel deployment
+- **Lazy Loading**: Components loaded on demand
+
+## License
+
+This project is licensed under the MIT License.
+
+## Changelog
+
+### v0.1.0
+- Initial release
+- News summarization feature
+- Text content detection
+- Image analysis capabilities
+- Video processing pipeline
+- Comprehensive testing suite
+- Production deployment configuration
