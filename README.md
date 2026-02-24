@@ -2,7 +2,7 @@
 
 A comprehensive AI-powered platform for detecting misinformation and analyzing content authenticity across text, images, and videos.
 
-## Features
+## Features 
 
 - **News Summarization**: Aggregate and summarize news from multiple sources using NewsAPI and GDELT
 - **Text Analysis**: Detect misinformation in text content and URLs using advanced AI analysis
