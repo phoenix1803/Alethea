@@ -1,5 +1,5 @@
 # Alethea Authenticity Engine 
- 
+  
 A comprehensive AI-powered platform for detecting misinformation and analyzing content authenticity across text, images, and videos.
 
 ## Features  
